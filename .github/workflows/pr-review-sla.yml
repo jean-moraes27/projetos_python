@@ -22,7 +22,7 @@ jobs:
         run: npm install @octokit/rest axios
 
       - name: Check PR review SLA and notify
-        run: node check-pr-sla.js
+        run: node projetos_python/check-pr-sla.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
