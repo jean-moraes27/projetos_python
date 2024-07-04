@@ -1,0 +1,24 @@
+name: Lembrete de Revisão de Pull Requests
+
+on:
+  pull_request:
+    types: [opened, review_requested]
+
+jobs:
+  slack_reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Enviar lembrete para o Slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: 'C03ABKPCWPP' # Substitua pelo ID do seu canal
+          slack-message: |
+            Novo Pull Request aberto/requer revisão:
+            * Título: ${{ github.event.pull_request.title }}
+            * Autor: ${{ github.event.pull_request.user.login }}
+            * Link: ${{ github.event.pull_request.html_url }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} # Armazene o token no GitHub Secrets
